@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>ES6</title>
+	</head>
+	<body>
+		<div id="doh"></div>
+		<script>
+			if (true) {
+				const x = 3;
+				console.log(x);
+			}
+			/*
+			function doh(...args) {
+				console.log(args[0]);
+				console.log(args);
+				let n = `The quick 
+				brown 
+				fox 
+				jumped over 
+				the lazy dogs`;
+				console.log(n);
+				return n.repeat(100);
+			}*/
+			//document.getElementById('doh').innerHTML = doh(1, 2, 3);
+			
+			function duh() {
+				return {
+					quick: 'Fast',
+					fox: 'Simon'
+				};
+			} 
+			let { quick, fox } = duh();
+			let ed = quick + ' Eddie';
+			console.log(ed);
+			
+			console.log('Simon'.repeat(3));
+			
+			class Person {
+				constructor(firstName, lastName) {
+					this.firstName = firstName;
+					this.lastName = lastName;
+					this.id = Person.id++;
+				}
+				toString() {
+					return `${this.firstName} ${this.lastName}: ${this.id}`;
+				}
+			}
+			
+			Person.id = 0;
+			var p = new Person('Simon', 'Wong');
+			var p2 = new Person('Joe', 'Wong');
+			var p3 = new Person('Jack', 'Wong');
+			console.log(p.toString());
+			console.log(p.toString());
+			console.log(p2.toString());
+			console.log(p3.toString());
+			
+			var input = 5 * 4 * 3 * 2 * 1;
+			console.log(input);
+			
+			function facto(n) {
+				if (n === 0) {
+					return 1;
+				}
+				return n * facto(n - 1);
+			}
+			console.log(facto(5));
+			
+			var inn = [1, 2, 3, [3, 2, [4]], 'simon', 1];
+			function add(inn) {
+				let sum = 0;
+				for (var i = 0; i < inn.length; i++) {
+					if (typeof inn[i] === 'number') {
+						sum = sum + inn[i];
+					} else if (Array.isArray(inn[i])) {
+						sum = sum + add(inn[i]);
+					}
+				}
+				return sum;
+			}
+			console.log(add(inn));
+			
+			var list = {
+				next: {
+					next: {
+						next: {
+							next: null
+						}
+					}
+				}
+			};
+			
+			function len(list) {
+				let cnt = 0;
+				if (list.next === null) return 1;
+				return 1 + len(list.next);
+			}
+			
+			console.log(len(list));
+			
+			var obj = {
+				foo: 'bar',
+				func: function() {
+					 var self = this;
+					 
+					console.debug(this.foo, self.foo);
+					(function() {
+						console.debug(this.foo, self.foo);
+					
+					})();
+				}
+			}
+			obj.func();
+			
+			function coins(amt) {
+				amt = amt * 100;
+				if (amt >= 5) {
+					if (amt / 25 >= 1) {
+						var div = 25;
+						var coinLabel = 'qtr';
+					} else if (amt / 10 >= 1) {
+						var div = 10;
+						var coinLabel = 'dim';
+					} else if (amt / 5 >= 1) {
+						var div = 5;
+						var coinLabel = 'nik';
+					}
+					//amt = amt * 100;
+					let qtrRaw = amt / div;
+					let qtr = Math.floor(qtrRaw);
+					var obj = { [coinLabel]: qtr };
+					if (parseFloat(qtrRaw)) {
+						let left = amt - (div * qtr);
+						obj = Object.assign(obj, coins(left/100));
+					}
+				} else {
+					let pen = amt;
+					return { pen };
+				}
+				
+				return obj;
+			}
+			console.log(coins(1.66));
+			
+			class Person2 {
+				constructor(name) {
+					this.name = name;
+				}
+				state() {
+					return {
+						legs: 2
+					};
+				}
+			}
+			Person2.legs = 2;
+			
+			var p = new Person2('Tom');
+			var p2 = new Person2('Jerry');
+			console.log(p.name, p2.name, p.state().legs);
+			console.log('hello'.includes('ez'));
+			var d2 = `hello
+world     `.trim();
+			console.log(d2 + 'x');
+			
+			function hwFunc(h = 'hello', w = 'world') {
+				return `${h} ${w}`;
+			}
+			console.log(hwFunc(undefined, 'Simon'));
+			
+			var ary = [0, 1, 2];
+			console.log(ary.constructor === Array);
+			
+			var obj = {
+				val: 1,
+				func: function() {
+					return (function() {
+						return this.val;
+					}.bind(this))();
+				}
+			};
+			console.log(obj.func());
+			var dohObj = id => ({ id, hw: 'helloworld' });
+			let { id, hw } = dohObj('Simon');
+			console.log(id, hw);
+			var sAry = ['The', 'quick', 'brown', 'fox'];
+			console.log(sAry.reduce((total, n) => `${total} ${n}`));
+
+			var goodies = {
+				hello: 'h',
+				world() {
+					return 'w';
+				}
+			};
+			var myObj = Object.assign({}, goodies);
+			console.log(myObj, goodies === myObj, myObj.world());
+			ary = [
+				{ h: 'hello', w: 'world' },
+				{ h: 'foo', w: 'bar' }
+			];
+			console.log(ary.some(val => val.w === 'world'));
+			let rVal = () => ({ hello: 'world' });
+			console.log(rVal());
+			let s1 = 'hello';
+			let s2 = 'world';
+			[s1, s2] = [s2, s1 ];
+			console.log(s1, s2);
+			let foo = Symbol.for('Simon');
+			let someObj = {
+				hello: 'world',
+				[foo]: 'bar'
+			};
+			console.log(someObj);
+			function *gen() {
+				yield 1;
+				yield 2;
+				yield 3;
+				return 6;
+			}
+			for (const i of gen()) {
+				console.log(i);
+			}
+			fetch('./text.json').then(function(response) {
+				return response.json();
+			}).then(function(response) {
+				let { hello } = response;
+				console.log(hello);
+			});
+		</script>
+	</body>
+</html>
