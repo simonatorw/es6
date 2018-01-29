@@ -222,12 +222,67 @@ world     `.trim();
 			for (const i of gen()) {
 				console.log(i);
 			}
-			fetch('./text.json').then(function(response) {
+			/*
+			fetch('text.json').then(function(response) {
 				return response.json();
 			}).then(function(response) {
 				let { hello } = response;
 				console.log(hello);
-			});
+			});*/
+			/*
+			async function getData() {
+				const duh = await fetch('./text.json');
+				return await duh.json();
+			}
+			console.log(getData());
+			
+			function* duhG() {
+				const val = yield getData().then(function(data) {
+					return data;
+				});
+				console.log(val);
+				yield 'wong';
+			}
+			for (const v of duhG()) {
+				console.log(v);
+			}
+			let gg = duhG();
+			console.log(gg.next());
+			*/
+			const arr = [10, 12, 15, 21];
+			for (var i = 0; i < arr.length; ++i) {
+				setTimeout((i) => {
+					console.log('Index: ' + i + ', element: ' + arr[i]);
+				}, 1000, i);
+			}
+			function firstWord(sent) {
+				return sent.split(' ')[0];
+			}
+			function duplicate(word) {
+			
+				return `${word}${word}`;
+			}
+			console.log(duplicate(firstWord('hello world')));
+			
+			function fibo2(n) {
+				if (n < 3) {
+					return 1;
+				} else {
+					return fibo(n - 1) + fibo(n - 2);
+				}
+				
+			}
+			function fibo(n) {
+				let a = 0, b = 1, f = 1;
+				
+				for (let i = 2; i <= n; i++) {
+					f = a + b;
+					a = b;
+					b = f;
+				}
+				return f;
+			}
+			console.log('fib', fibo(6), fibo2(6))
 		</script>
 	</body>
 </html>
