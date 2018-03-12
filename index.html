@@ -249,12 +249,12 @@ world     `.trim();
 			let gg = duhG();
 			console.log(gg.next());
 			*/
-			const arr = [10, 12, 15, 21];
+			/*const arr = [10, 12, 15, 21];
 			for (var i = 0; i < arr.length; ++i) {
 				setTimeout((i) => {
 					console.log('Index: ' + i + ', element: ' + arr[i]);
-				}, 1000, i);
-			}
+				}, 0, i);
+			}*/
 			function firstWord(sent) {
 				return sent.split(' ')[0];
 			}
@@ -268,7 +268,7 @@ world     `.trim();
 				if (n < 3) {
 					return 1;
 				} else {
-					return fibo(n - 1) + fibo(n - 2);
+					return fibo(n - 2) + fibo(n - 1);
 				}
 				
 			}
@@ -283,6 +283,77 @@ world     `.trim();
 				return f;
 			}
 			console.log('fib', fibo(6), fibo2(6))
+			
+			function run() {
+			
+				var y = 1;
+				
+				(function() {
+					var x = 1;
+					var y = 2;
+				}());
+				
+				//console.log(x);
+				console.log(y);
+			}
+			run();
+			
+			function fact(n) {
+				for (let i = n; --i;) {
+					n = n * i;
+				}
+				return n;
+			}
+			console.log(fact(5));
+			
+			
+			let { a, b } = [[1, 2], [2, 3]].reduce((a, b, i) => {			
+				return a[i] + b[i];
+			});
+		
+			
+			console.log(a, b);
+			
+			function destruct({ doh }) {
+				return ++doh;
+			}
+			
+			console.log(destruct({ doh: 1 }));
+			
+			myMap = new Map([
+				['turtle', 'Ralp'],
+				['weapon', 'Sai']
+			]);
+			
+			console.log(myMap.get('weapon'), myMap.get('turtle'), myMap.has('weapon'), myMap.has('duh'), myMap.size);
+			
+			for (let [key, val] of myMap) {
+				console.log(key, val);
+			}
+			
+			myMap.delete('weapon');
+			console.log(myMap.size);
+			myMap.clear();
+			console.log(myMap.size);
+			
+			const aList = [3, 2, 1];
+			for (let i of aList.keys()) {
+				console.log(i);
+			}
+			aList.forEach(item => console.log(item));
+			
+			let prom = Promise.reject('error');
+			let prom2 = Promise.resolve('world');
+			
+			prom
+				.then(data => {
+					console.log(data);
+					return prom2;
+				})
+				.then(data => {
+					console.log(data);
+				})
+				.catch(err => console.log(err));
 		</script>
 	</body>
 </html>
