@@ -354,6 +354,66 @@ world     `.trim();
 					console.log(data);
 				})
 				.catch(err => console.log(err));
+				
+				
+			function isPattern(s, p) {
+				if ((s.length % p) || s.length === p) return false;
+				const times = s.length / p; // times = 2
+				
+				for(let i = 1; i < times; i ++) { // i = 3
+					for(let j = 0; j < p; j++) {
+						if (s[j] !== s[(p * i) + j]) {
+							return false;
+						}
+					} 
+				}
+				return true;
+			}
+			
+			const testcase1 = 'abcabcabc'; //true
+			
+			console.log(isPattern(testcase1, 3));
+			
+			function repeater(str) {
+                let buffer = [];
+                let i = 0;
+
+                while(i < str.length) {
+					if (str[i] === '(') {
+						const lastIndex = str.lastIndexOf(')') ;
+						const lastRepeatIndex = str.indexOf('}', lastIndex);
+						const newSub = str.substring(i + 1, lastIndex) + str.substring(lastIndex + 1, lastRepeatIndex + 1);
+						const result = repeater(newSub);
+
+						buffer = buffer.concat(result);
+
+						i = 0;
+						buffer = buffer.concat(str.substring(lastRepeatIndex + 1));
+						str = buffer.join('');
+						buffer = [];
+					} else if (str[i] === '{') {
+						const lastIndex = str.indexOf('}');
+						const times = parseInt(str.substring(i + 1, lastIndex), 10);
+
+						buffer = [].concat((buffer.join('')).repeat(times));
+
+						i = lastIndex.length;
+					} else {
+						buffer.push(str[i]);
+						i++;
+					}
+                }
+
+                return buffer.join('');
+			}
+
+			const case1 = 'a{3}bbb'; //aaa
+			const case2 = 'a(hello){3}bbb'; //ahellohellohellobbb
+			const case3 = 'sss(cat(dog){2}){3}uuu'; //ssscatdogdogcatdogdogcatdogdoguuu
+
+			console.log(repeater(case1));
+			console.log(repeater(case2));
+			console.log(repeater(case3));			
 		</script>
 	</body>
 </html>
