@@ -416,10 +416,16 @@ world     `.trim();
 			console.log(repeater(case3));
 
 			function charTimes(str) {
-				return str;
+				const count = {};
+
+				for (const item of str) {
+					count[item] = count[item] ? count[item] + 1 : 1;
+				};
+
+				return count;
 			}
 
-			console.log(charTimes('doh'));
+			console.log(charTimes('dooohh'));
 		</script>
 	</body>
 </html>
