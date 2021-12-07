@@ -426,6 +426,43 @@ world     `.trim();
 			}
 
 			console.log(charTimes('dooohh'));
+
+			class Router {
+				constructor() {
+					this.routes = [];
+				}
+				AddRoute(path, mode, service) {
+					this.routes.push({
+						path,
+						mode,
+						service
+					});
+					console.log(this.routes);
+				}
+				Route(path, isSubPath) {
+					const route = this.routes.find(item => !item.path.indexOf(path));
+
+					if ((route && !isSubPath) || (route && isSubPath && route.mode === 'prefix')) {
+						return route.service;
+					} else {
+						const paths = path.split('/');
+						if (paths.length < 3) {
+							return '404';
+						}
+						paths.pop();
+						const subPath = paths.join('/');
+						return this.Route(subPath, true);
+					}
+				}
+			}
+
+			const router = new Router();
+
+			router.AddRoute('/foo', 'exact', 'fooService');
+			router.AddRoute('/bar', 'prefix', 'barService');
+			console.log(router.Route('/foo'));
+			console.log(router.Route('/bar/service'));
+
 		</script>
 	</body>
 </html>
