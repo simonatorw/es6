@@ -463,6 +463,21 @@ world     `.trim();
 			console.log(router.Route('/foo'));
 			console.log(router.Route('/bar/service'));
 
+			function palindrome(str) {
+				const max = Math.ceil(str.length / 2);
+				let strMax = max;
+				
+				if (str.length % 2) {
+					strMax = max - 1;
+				}
+				const list = [];
+				for (let i = max; i < str.length; i++) {
+					list.push(str[i]);
+				}
+				
+				return str.substring(0, strMax) === list.reverse().join('');
+			}
+
 		</script>
 	</body>
 </html>
